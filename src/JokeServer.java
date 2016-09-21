@@ -8,6 +8,7 @@ public class JokeServer {
 
     private boolean Joke = true;
     static private HashMap<String,Integer> uidList = new HashMap<String, Integer>();
+    private static Boolean status =true;
 
 
     public static void main(String[] args) {
@@ -31,7 +32,8 @@ public class JokeServer {
             while (true){
                 try{
                     sock = servsock.accept();
-                    new Worker(sock,uidList).start();
+                    System.out.println("Current Joke Staus: "+ status.toString());
+                    new Worker(sock,uidList,status).start();
                 }catch (IOException ioe){System.out.println("Unable to start server");}
             }
         }catch (IOException ioe){
@@ -39,4 +41,15 @@ public class JokeServer {
             System.out.println(ioe.toString());
         }
     }
+    public static void  setJoke(){
+        //System.out.println("Current Joke status: "+status.toString());
+        try {
+            status = !status;
+        }catch (Exception ioe) {System.out.println(ioe);}
+        System.out.println("Changed Joke status: "+status.toString());
+    }
+    public static Boolean getJoke(){
+        return status;
+    }
 }
+
