@@ -3,19 +3,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Hemanth on 9/18/2016.
  */
 public class Worker extends Thread {
     Socket sock;
-    Worker(Socket s,HashMap<String,Integer> al,boolean status ) {sock =s;collect=al;Joke = status; }
+    Worker(Socket s,HashMap<String,Integer> al,Status status ) {sock =s;collect=al;Joke = status; }
     HashMap<String,Integer> collect = new HashMap<String,Integer>();
-    Boolean Joke = true;
+    Status Joke;
 
     public void run(){
         PrintStream out = null;
@@ -27,13 +24,13 @@ public class Worker extends Thread {
                 String name;
                 name = in.readLine();
                 System.out.println("Request From: " + name);
-                System.out.println("Sending value "+name+Joke.toString());
+                System.out.println("Sending value "+name+Joke.getJoke());
                 //collect.put(name+Joke.toString(),0);
                 printList(collect);
                 //out.println("Send things over\n");
                 //setJoke();
                 //out.println(null);
-                if (checkNew(name+Joke.toString())) {
+                if (checkNew(name+Joke.getJoke())) {
                     String data = getData(Joke, name);
                     out.print(data);
                 }
@@ -60,8 +57,8 @@ public class Worker extends Thread {
 
     }
 
-    public String getData(Boolean status,String UUID){
-        if (status){
+    public String getData(Status status,String UUID){
+        if (status.getJoke()){
             System.out.println("Getting Joke");
             return getJoke(UUID);
 
@@ -75,23 +72,24 @@ public class Worker extends Thread {
     public String getJoke(String UUID){
         String dataString;
         int selection = collect.get(UUID+"true");
+        String user = UUID.split(":")[1];
         System.out.println("Current UUID: " + UUID + " Selection : " + selection);
-        String defaultString = "Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.";
+        String defaultString = "JA " + user + " : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.";
         switch (selection){
             case 0:
                 dataString = defaultString;
                 break;
             case 1:
-                dataString = "Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.";
+                dataString = "JB " + user + " : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.";
                 break;
             case 2:
-                dataString = "When I call a family meeting I turn off the house wifi and wait for them all to come running.";
+                dataString = "JC "+ user + " : When I call a family meeting I turn off the house wifi and wait for them all to come running.";
                 break;
             case 3:
-                dataString = "I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.";
+                dataString = "JD " + user + " : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.";
                 break;
             case 4:
-                dataString ="I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.";
+                dataString = "JE " + user + " : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.";
                 break;
             case 5:
                 System.out.println("Case 5");
@@ -110,23 +108,24 @@ public class Worker extends Thread {
     //Proverbs from http://www.u.arizona.edu/~rchaves/deepthought.html
     public String getProverb(String UUID){
         String dataString = new String();
+        String user = UUID.split(":")[1];
         int selection =collect.get(UUID+"true");
-        String defaultString = "Those who say it can't be done are usually interrupted by others doing it.";
+        String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
         switch (selection){
             case 0:
                 dataString = defaultString;
                 break;
             case 1:
-                dataString = "A smile is an inexpensive way to change your looks.";
+                dataString = "PB " + user + " : A smile is an inexpensive way to change your looks.";
                 break;
             case 2:
-                dataString = "The pursuit of happiness is the chase of a life time.";
+                dataString = "PC " + user + " : The pursuit of happiness is the chase of a life time.";
                 break;
             case 3:
-                dataString = "Every man dies; but not every man really lives.";
+                dataString = "PD " + user + " : Every man dies; but not every man really lives.";
                 break;
             case 4:
-                dataString ="Better to understand little than to misunderstand a lot.";
+                dataString = "PE " + user + " : Better to understand little than to misunderstand a lot.";
                 break;
             case 5:
                 dataString = defaultString;

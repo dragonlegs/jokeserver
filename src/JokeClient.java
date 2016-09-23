@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -10,6 +11,7 @@ import java.util.UUID;
  */
 public class JokeClient {
     private static String uniqueID = UUID.randomUUID().toString();
+    private static String user = "Default";
     public static void main (String args[]){
         String serverName;
         int port;
@@ -21,6 +23,10 @@ public class JokeClient {
         System.out.println("Hemanth Ande's inet Client, 1.8.");
         System.out.println("Using Server: " + serverName + ", Port: " + port);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        Scanner user_input = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        user = user_input.next();
+        System.out.println("Welcome "+user +"!");
         try{
             String name;
             do{
@@ -63,10 +69,12 @@ public class JokeClient {
         BufferedReader fromServer;
         PrintStream toServer;
         String textFromServer;
+
         try{
             sock = new Socket (serverName,port);
             fromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             toServer = new PrintStream(sock.getOutputStream());
+            name = name + ":" + user;
             //Send name to server and then clear
             toServer.println(name); toServer.flush();
             //Reads blocks of data from the server (up to 3 lines)
