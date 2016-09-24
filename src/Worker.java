@@ -24,8 +24,8 @@ public class Worker extends Thread {
             try{
                 String name;
                 name = in.readLine();
-                System.out.println("Request From: " + name);
-                System.out.println("Sending value "+name+Joke.getJoke());
+                //System.out.println("Request From: " + name);
+                //System.out.println("Sending value "+name+Joke.getJoke());
                 //collect.put(name+Joke.toString(),0);
                 printList(collect);
                 //out.println("Send things over\n");
@@ -126,6 +126,7 @@ public class Worker extends Thread {
         //Collections.shuffle(messages, new Random(unique.hashCode()));
         System.out.println(messages);
         String user = UUID.split(":")[1];
+        selection = messages.get(selection);
         String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
         switch (selection){
             case 0:
@@ -164,21 +165,21 @@ public class Worker extends Thread {
     }
     public List<Integer> randomSeed(List<Integer> list,String UID){
         if (uidCycle.get(UID) != null){
-            System.out.println("Old Cycle UUID: " + UID);
-            System.out.println("Old Cycle Key: " + uidCycle.get(UID) );
-            System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+           // System.out.println("Old Cycle UUID: " + UID);
+            //System.out.println("Old Cycle Key: " + uidCycle.get(UID) );
+            //System.out.println("Current Cycle Zero " + uidCycle.get(UID));
             if (uidCycle.get(UID) % 5 == 0){
-                System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+                //System.out.println("Current Cycle Zero " + uidCycle.get(UID));
                 int real = uidCycle.get(UID)-1;
-                System.out.println("Lower by one "+real);
+                //System.out.println("Lower by one "+real);
                 int seed =real - (real % 5);
-                System.out.println("Seed is " + seed);
+                //System.out.println("Seed is " + seed);
 
                 Collections.shuffle(list, new Random((UID+seed).hashCode()));
             }else{
                 int seed = uidCycle.get(UID) - (uidCycle.get(UID) % 5);
-                System.out.println("Current Cycle Less " + uidCycle.get(UID));
-                System.out.println("Seed is " +seed);
+                //System.out.println("Current Cycle Less " + uidCycle.get(UID));
+                //System.out.println("Seed is " +seed);
 
                 Collections.shuffle(list, new Random((UID+seed).hashCode()));
             }
