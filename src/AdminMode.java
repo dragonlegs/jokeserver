@@ -38,6 +38,7 @@ public class AdminMode extends Thread {
             } catch (IOException ioe) {
                 System.out.println("Server Read Error");
             }
+
             sock.close();
         } catch (IOException x) {
             System.out.println(x);
@@ -53,11 +54,16 @@ public class AdminMode extends Thread {
                 output.println("Current Status of Joke State: " + status.toString());
                 break;
             case 1:
-                System.out.println("Shutdown Initiated");
+                System.out.println("Admin: Send Server State " + status.toString());
+                output.println(status.toString());
+                break;
+            case 2:
+                System.out.println("Admin: Shutdown Initiated");
+                output.println("Shutdown Initiated");
                 System.exit(0);
                 break;
             default :
-                System.out.println("Not a valid option");
+                System.out.println("Admin: Not a valid option");
                 output.println("Not a valid option");
         }
 

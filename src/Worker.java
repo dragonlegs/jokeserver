@@ -3,15 +3,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Hemanth on 9/18/2016.
  */
 public class Worker extends Thread {
     Socket sock;
-    Worker(Socket s,HashMap<String,Integer> al,Status status ) {sock =s;collect=al;Joke = status; }
+    Worker(Socket s,HashMap<String,Integer> al,Status status,HashMap<String,Float> wl ) {sock =s;collect=al;Joke = status; uidCycle = wl; }
     HashMap<String,Integer> collect = new HashMap<String,Integer>();
+    HashMap<String,Float> uidCycle = new HashMap<String,Float>();
     Status Joke;
 
     public void run(){
@@ -71,9 +72,19 @@ public class Worker extends Thread {
     //Jokes are from onelinefun.com
     public String getJoke(String UUID){
         String dataString;
-        int selection = collect.get(UUID+"true");
+        String unique = UUID+"true";
+        int selection = collect.get(unique);
+        if (selection == 5){
+            collect.put((UUID+"true"),0);
+            selection = 0;
+        }
+        List<Integer> messages = Arrays.asList(0, 1, 2, 3, 4);
+        messages = randomSeed(messages,(UUID+"true"));
+        //Collections.shuffle(messages, new Random(unique.hashCode()));
+        System.out.println(messages);
         String user = UUID.split(":")[1];
-        System.out.println("Current UUID: " + UUID + " Selection : " + selection);
+        System.out.println("Current UUID: " + UUID + " Joke Selection : " + selection);
+        selection = messages.get(selection);
         String defaultString = "JA " + user + " : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.";
         switch (selection){
             case 0:
@@ -91,17 +102,13 @@ public class Worker extends Thread {
             case 4:
                 dataString = "JE " + user + " : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.";
                 break;
-            case 5:
-                System.out.println("Case 5");
-                dataString = defaultString;
-                collect.put(UUID+"true",0);
-                break;
             default:
                 System.out.println("Default");
                 dataString = defaultString;
                 collect.put(UUID+"true",0);
 
     }
+
         collect.put(UUID+"true",collect.get(UUID+"true")+1);
         return dataString;
     }
@@ -109,7 +116,7 @@ public class Worker extends Thread {
     public String getProverb(String UUID){
         String dataString = new String();
         String user = UUID.split(":")[1];
-        int selection =collect.get(UUID+"true");
+        int selection =collect.get(UUID+"false");
         String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
         switch (selection){
             case 0:
@@ -129,14 +136,14 @@ public class Worker extends Thread {
                 break;
             case 5:
                 dataString = defaultString;
-                collect.put(UUID+"true",0);
+                collect.put(UUID+"false",0);
                 break;
             default:
                 dataString = defaultString;
-                collect.put(UUID+"true",0);
+                collect.put(UUID+"false",0);
 
         }
-        collect.put(UUID+"true",collect.get(UUID+"true")+1);
+        collect.put(UUID+"false",collect.get(UUID+"false")+1);
         return dataString;
     }
 
@@ -149,6 +156,33 @@ public class Worker extends Thread {
             return true;
         }
 
+    }
+    public List<Integer> randomSeed(List<Integer> list,String UID){
+        if (uidCycle.get(UID) != null){
+            System.out.println("Old Cycle UUID: " + UID);
+            System.out.println("Old Cycle Key: " + uidCycle.get(UID) );
+            System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+            if (uidCycle.get(UID) % 5 == 0f){
+                System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+                Float seed =uidCycle.get(UID)-1 - (uidCycle.get(UID)-1 % 5);
+                System.out.print("Seed is " );
+                System.out.println(seed.toString());
+                Collections.shuffle(list, new Random((UID+seed.toString()).hashCode()));
+            }else{
+                Float seed = uidCycle.get(UID) - (uidCycle.get(UID) % 5);
+                System.out.println("Current Cycle Less " + seed.toString());
+                Collections.shuffle(list, new Random((UID+seed.toString()).hashCode()));
+            }
+            uidCycle.put(UID, uidCycle.get(UID)+1);
+
+
+        }else{
+            System.out.println("New Cycle");
+            uidCycle.put(UID,1f);
+            return randomSeed(list , UID);
+        }
+
+        return list;
     }
 
 }

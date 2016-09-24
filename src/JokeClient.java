@@ -16,7 +16,7 @@ public class JokeClient {
         String serverName;
         int port;
         if (args.length<2) {
-            serverName = "localhost";port = 1565;
+            serverName = "localhost";port = 4545;
             System.out.println("Not using 2 Commandline arguments for servername and port using defaults");
         }
         else {serverName = args[0]; port = Integer.parseInt(args[1]);}
@@ -35,7 +35,7 @@ public class JokeClient {
                 name = in.readLine();
                 //If quit substring in name stop
                 if (!name.toLowerCase().equals("quit")){
-                    System.out.println("Sending\n"+ name);
+                    //System.out.println("Sending\n"+ name);
                     sendMessage(uniqueID,serverName,port);
 
                 }

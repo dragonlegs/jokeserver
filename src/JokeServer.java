@@ -8,6 +8,7 @@ public class JokeServer {
 
     private boolean Joke = true;
     static private HashMap<String,Integer> uidList = new HashMap<String, Integer>();
+    static private HashMap<String,Float> uidCycle = new HashMap<String,Float>();
     private static Boolean status =true;
 
 
@@ -24,8 +25,8 @@ public class JokeServer {
             portAdmin = Integer.parseInt(args[2]);
         }else{
              q_len =6;
-             port = 1565;
-            portAdmin = 4545;
+             port = 4545 ;
+            portAdmin = 5050;
         }
         Status status = new Status();
         AdminServer admin = new AdminServer(status,portAdmin);
@@ -42,7 +43,7 @@ public class JokeServer {
                     sock = servsock.accept();
                     //sock2 = adminsock.accept();
                     System.out.println("Current Joke Staus: "+ status.toString());
-                    new Worker(sock,uidList,status).start();
+                    new Worker(sock,uidList,status,uidCycle).start();
                 }catch (IOException ioe){System.out.println("Unable to start server");}
             }
         }catch (IOException ioe){

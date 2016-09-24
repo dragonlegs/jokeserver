@@ -21,6 +21,7 @@ public class Status extends Thread {
     public Boolean getJoke(){
         return status;
     }
+
      public String printJoke(){
          if (status){
              return "Current Joke State: Joke";
