@@ -114,7 +114,7 @@ public class Worker extends Thread {
     }
     //Proverbs from http://www.u.arizona.edu/~rchaves/deepthought.html
     public String getProverb(String UUID){
-        String dataString = new String();
+        String dataString ;
         String user = UUID.split(":")[1];
         int selection =collect.get(UUID+"false");
         String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
@@ -133,10 +133,6 @@ public class Worker extends Thread {
                 break;
             case 4:
                 dataString = "PE " + user + " : Better to understand little than to misunderstand a lot.";
-                break;
-            case 5:
-                dataString = defaultString;
-                collect.put(UUID+"false",0);
                 break;
             default:
                 dataString = defaultString;
