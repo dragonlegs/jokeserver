@@ -8,7 +8,7 @@ public class JokeServer {
 
     private boolean Joke = true;
     static private HashMap<String,Integer> uidList = new HashMap<String, Integer>();
-    static private HashMap<String,Float> uidCycle = new HashMap<String,Float>();
+    static private HashMap<String,Integer> uidCycle = new HashMap<String,Integer>();
     private static Boolean status =true;
 
 

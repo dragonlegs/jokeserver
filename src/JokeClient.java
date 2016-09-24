@@ -12,6 +12,7 @@ import java.util.UUID;
 public class JokeClient {
     private static String uniqueID = UUID.randomUUID().toString();
     private static String user = "Default";
+    private static int num =0;
     public static void main (String args[]){
         String serverName;
         int port;
@@ -37,7 +38,11 @@ public class JokeClient {
                 if (!name.toLowerCase().equals("quit")){
                     //System.out.println("Sending\n"+ name);
                     sendMessage(uniqueID,serverName,port);
+                    num++;
 
+                }
+                if (num % 5 == 0){
+                    System.out.println("=============================================");
                 }
             }while (!name.toLowerCase().equals("quit"));
             System.out.println("Cancelled by user request.");

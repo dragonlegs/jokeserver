@@ -10,9 +10,9 @@ import java.util.*;
  */
 public class Worker extends Thread {
     Socket sock;
-    Worker(Socket s,HashMap<String,Integer> al,Status status,HashMap<String,Float> wl ) {sock =s;collect=al;Joke = status; uidCycle = wl; }
+    Worker(Socket s,HashMap<String,Integer> al,Status status,HashMap<String,Integer> wl ) {sock =s;collect=al;Joke = status; uidCycle = wl; }
     HashMap<String,Integer> collect = new HashMap<String,Integer>();
-    HashMap<String,Float> uidCycle = new HashMap<String,Float>();
+    HashMap<String,Integer> uidCycle = new HashMap<String,Integer>();
     Status Joke;
 
     public void run(){
@@ -115,8 +115,17 @@ public class Worker extends Thread {
     //Proverbs from http://www.u.arizona.edu/~rchaves/deepthought.html
     public String getProverb(String UUID){
         String dataString ;
+        String unique = UUID+"false";
+        int selection = collect.get(unique);
+        if (selection == 5){
+            collect.put((UUID+"false"),0);
+            selection = 0;
+        }
+        List<Integer> messages = Arrays.asList(0, 1, 2, 3, 4);
+        messages = randomSeed(messages,(UUID+"false"));
+        //Collections.shuffle(messages, new Random(unique.hashCode()));
+        System.out.println(messages);
         String user = UUID.split(":")[1];
-        int selection =collect.get(UUID+"false");
         String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
         switch (selection){
             case 0:
@@ -158,23 +167,27 @@ public class Worker extends Thread {
             System.out.println("Old Cycle UUID: " + UID);
             System.out.println("Old Cycle Key: " + uidCycle.get(UID) );
             System.out.println("Current Cycle Zero " + uidCycle.get(UID));
-            if (uidCycle.get(UID) % 5 == 0f){
+            if (uidCycle.get(UID) % 5 == 0){
                 System.out.println("Current Cycle Zero " + uidCycle.get(UID));
-                Float seed =uidCycle.get(UID)-1 - (uidCycle.get(UID)-1 % 5);
-                System.out.print("Seed is " );
-                System.out.println(seed.toString());
-                Collections.shuffle(list, new Random((UID+seed.toString()).hashCode()));
+                int real = uidCycle.get(UID)-1;
+                System.out.println("Lower by one "+real);
+                int seed =real - (real % 5);
+                System.out.println("Seed is " + seed);
+
+                Collections.shuffle(list, new Random((UID+seed).hashCode()));
             }else{
-                Float seed = uidCycle.get(UID) - (uidCycle.get(UID) % 5);
-                System.out.println("Current Cycle Less " + seed.toString());
-                Collections.shuffle(list, new Random((UID+seed.toString()).hashCode()));
+                int seed = uidCycle.get(UID) - (uidCycle.get(UID) % 5);
+                System.out.println("Current Cycle Less " + uidCycle.get(UID));
+                System.out.println("Seed is " +seed);
+
+                Collections.shuffle(list, new Random((UID+seed).hashCode()));
             }
             uidCycle.put(UID, uidCycle.get(UID)+1);
 
 
         }else{
             System.out.println("New Cycle");
-            uidCycle.put(UID,1f);
+            uidCycle.put(UID,1);
             return randomSeed(list , UID);
         }
 
