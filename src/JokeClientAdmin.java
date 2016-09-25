@@ -9,16 +9,21 @@ import java.util.Scanner;
  * Created by Hemanth on 9/23/16.
  */
 public class JokeClientAdmin {
-
+    private static String ip1;
+    private static String ip2;
+    private static String serverName = "localhost";
+    private static int port = 5050;
 
     public static void main (String args[]){
-        String serverName;
-        int port;
-        if (args.length<2) {
-            serverName = "localhost";port = 5050;
-            System.out.println("Admin Using Defaults");
+        if (args.length>0) {
+            if (checkArgs(args)){
+                System.out.println("Found Custom Args");
+            }else {
+                serverName = "localhost";
+                port = 5050;
+                System.out.println("Admin Using Defaults");
+            }
         }
-        else {serverName = args[0]; port = Integer.parseInt(args[1]);}
         System.out.println("Admin Client, 1.8.");
         System.out.println("Connecting to Server: " + serverName + ", Port: " + port);
         String state = "Not Known";
@@ -33,13 +38,14 @@ public class JokeClientAdmin {
                 printOptions("Toogle Server Status",0);
                 printOptions("Server State Status", 1);
                 printOptions("Shutdown Server",2);
+                System.out.println("Please Enter Selection: ");
                 System.out.flush();
                 name = in.readLine();
                 //If not 'quit' send the message
                 if (!name.toLowerCase().equals("quit")){
                     //System.out.println("Sending\n"+ name);
                     String check = sendMessage(name,serverName,port);
-                    if (check != "False") {
+                    if (!check.equals("False")) {
                         //Get Server State every send message
                         state = currentServerState("1", serverName, port);
                     }else{
@@ -100,6 +106,44 @@ public class JokeClientAdmin {
             //System.out.println("Received State " + hello );
             //return hello;
         }catch (Exception ioe){return "Not Known";}
+
+    }
+
+    public static boolean checkArgs(String args[]){
+        if (args.length == 2){
+            ip1 = args[0];
+            ip2 = args[1];
+            System.out.println("Found multiple servers");
+            selectIP();
+        }else if (args.length ==1){
+            ip1 = args[0];
+        }else{
+            System.out.println("Max Args is two");
+            return false;
+        }
+        return true;
+
+    }
+    public static void selectIP(){
+        System.out.println("Select Server to connect to");
+        System.out.println("[0] " + ip1);
+        System.out.println("[1]" + ip2);
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            String enter = in.readLine();
+            switch (enter){
+                case "0":
+                    serverName = ip1;
+                    break;
+                case "1":
+                    serverName = ip2;
+                    break;
+                default:
+                    System.out.println("Option not valid");
+                    selectIP();
+            }
+
+        }catch (IOException ioe){System.out.println("Unable to read input");}
 
     }
 }

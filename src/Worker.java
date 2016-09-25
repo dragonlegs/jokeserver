@@ -10,10 +10,11 @@ import java.util.*;
  */
 public class Worker extends Thread {
     Socket sock;
-    Worker(Socket s,HashMap<String,Integer> al,Status status,HashMap<String,Integer> wl ) {sock =s;collect=al;Joke = status; uidCycle = wl; }
+    Worker(Socket s,HashMap<String,Integer> al,Status status,HashMap<String,Integer> wl,Boolean secondary ) {sock =s;collect=al;Joke = status; uidCycle = wl;this.secondary = secondary; }
     HashMap<String,Integer> collect = new HashMap<String,Integer>();
     HashMap<String,Integer> uidCycle = new HashMap<String,Integer>();
     Status Joke;
+    Boolean secondary;
 
     public void run(){
         PrintStream out = null;
@@ -47,10 +48,10 @@ public class Worker extends Thread {
     /**
      * Toggles between Joke and Proverb
      */
-    public void setJoke(){
-        //Boolean local_value = JokeServer.STATUS;
-        JokeServer.setJoke();
-    }
+//    public void setJoke(){
+//        //Boolean local_value = JokeServer.STATUS;
+//        JokeServer.setJoke();
+//    }
     public void printList(HashMap<String,Integer> al){
         for (String key : al.keySet()){
             System.out.println(key + " : " + al.get(key));
@@ -81,26 +82,27 @@ public class Worker extends Thread {
         List<Integer> messages = Arrays.asList(0, 1, 2, 3, 4);
         messages = randomSeed(messages,(UUID+"true"));
         //Collections.shuffle(messages, new Random(unique.hashCode()));
-        System.out.println(messages);
+        //System.out.println(messages);
         String user = UUID.split(":")[1];
         System.out.println("Current UUID: " + UUID + " Joke Selection : " + selection);
         selection = messages.get(selection);
-        String defaultString = "JA " + user + " : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.";
+        String serverTag = serverTagId(secondary);
+        String defaultString = serverTag + "JA " + user + " : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.";
         switch (selection){
             case 0:
                 dataString = defaultString;
                 break;
             case 1:
-                dataString = "JB " + user + " : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.";
+                dataString = serverTag + "JB " + user + " : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.";
                 break;
             case 2:
-                dataString = "JC "+ user + " : When I call a family meeting I turn off the house wifi and wait for them all to come running.";
+                dataString = serverTag + "JC "+ user + " : When I call a family meeting I turn off the house wifi and wait for them all to come running.";
                 break;
             case 3:
-                dataString = "JD " + user + " : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.";
+                dataString = serverTag + "JD " + user + " : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.";
                 break;
             case 4:
-                dataString = "JE " + user + " : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.";
+                dataString = serverTag + "JE " + user + " : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.";
                 break;
             default:
                 System.out.println("Default");
@@ -131,25 +133,26 @@ public class Worker extends Thread {
         //Get Seed Random List for random
         messages = randomSeed(messages,(UUID+"false"));
         //Collections.shuffle(messages, new Random(unique.hashCode()));
-        System.out.println(messages);
+        //System.out.println(messages);
         String user = UUID.split(":")[1];
         selection = messages.get(selection);
-        String defaultString = "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
+        String serverTag = serverTagId(secondary);
+        String defaultString = serverTag + "PA " + user + " : Those who say it can't be done are usually interrupted by others doing it.";
         switch (selection){
             case 0:
                 dataString = defaultString;
                 break;
             case 1:
-                dataString = "PB " + user + " : A smile is an inexpensive way to change your looks.";
+                dataString = serverTag + "PB " + user + " : A smile is an inexpensive way to change your looks.";
                 break;
             case 2:
-                dataString = "PC " + user + " : The pursuit of happiness is the chase of a life time.";
+                dataString = serverTag + "PC " + user + " : The pursuit of happiness is the chase of a life time.";
                 break;
             case 3:
-                dataString = "PD " + user + " : Every man dies; but not every man really lives.";
+                dataString = serverTag + "PD " + user + " : Every man dies; but not every man really lives.";
                 break;
             case 4:
-                dataString = "PE " + user + " : Better to understand little than to misunderstand a lot.";
+                dataString = serverTag + "PE " + user + " : Better to understand little than to misunderstand a lot.";
                 break;
             default:
                 dataString = defaultString;
@@ -191,7 +194,7 @@ public class Worker extends Thread {
                 //System.out.println("Current Cycle Zero " + uidCycle.get(UID));
                 int real = uidCycle.get(UID)-1;
                 //System.out.println("Lower by one "+real);
-                int seed =real - (real % 5);
+                int seed = real - (real % 5);
                 //System.out.println("Seed is " + seed);
 
                 Collections.shuffle(list, new Random((UID+seed).hashCode()));
@@ -206,12 +209,20 @@ public class Worker extends Thread {
 
 
         }else{
-            System.out.println("New Cycle");
+            //System.out.println("New Cycle");
             uidCycle.put(UID,1);
             return randomSeed(list , UID);
         }
 
         return list;
+    }
+
+    public String serverTagId(Boolean check){
+        if (check){
+            return "<s2> ";
+        }else{
+            return "<s1> ";
+        }
     }
 
 }
