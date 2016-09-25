@@ -13,15 +13,27 @@ public class Status extends Thread {
 
     }
 
+    /**
+     * Toogle for current mode
+     */
     public void setJoke(){
         status = !status;
         System.out.println(printJoke());
 
     }
+
+    /**
+     *
+     * @return  Boolean State
+     */
     public Boolean getJoke(){
         return status;
     }
 
+    /**
+     *
+     * @return Pretty print of current State
+     */
      public String printJoke(){
          if (status){
              return "Current Joke State: Joke";
@@ -30,7 +42,10 @@ public class Status extends Thread {
          }
      }
 
-
+    /**
+     * rewrote to get string of the boolean value
+     * @return
+     */
     @Override
     public String toString() {
         if (status){

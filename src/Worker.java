@@ -113,6 +113,12 @@ public class Worker extends Thread {
         return dataString;
     }
     //Proverbs from http://www.u.arizona.edu/~rchaves/deepthought.html
+
+    /**
+     *
+     * @param UUID Unique String to store for random list
+     * @return dataString String of Proverb
+     */
     public String getProverb(String UUID){
         String dataString ;
         String unique = UUID+"false";
@@ -122,6 +128,7 @@ public class Worker extends Thread {
             selection = 0;
         }
         List<Integer> messages = Arrays.asList(0, 1, 2, 3, 4);
+        //Get Seed Random List for random
         messages = randomSeed(messages,(UUID+"false"));
         //Collections.shuffle(messages, new Random(unique.hashCode()));
         System.out.println(messages);
@@ -153,6 +160,11 @@ public class Worker extends Thread {
         return dataString;
     }
 
+    /**
+     * Checks if UUID(name) is found in List
+     * @param name Unique String
+     * @return Boolean if new UUID
+     */
     public Boolean checkNew(String name){
         if (collect.get(name) != null){
             System.out.println("Old UUID :" + name);
@@ -163,6 +175,13 @@ public class Worker extends Thread {
         }
 
     }
+
+    /**
+     *
+     * @param list List that stores Random
+     * @param UID
+     * @return
+     */
     public List<Integer> randomSeed(List<Integer> list,String UID){
         if (uidCycle.get(UID) != null){
            // System.out.println("Old Cycle UUID: " + UID);

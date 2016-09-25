@@ -1,0 +1,122 @@
+<------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+//10 response in Joke mode captured from JokeClient
+Not using 2 Commandline arguments for servername and port using defaults
+Hemanth Ande's inet Client, 1.8.
+Using Server: localhost, Port: 4545
+Enter your name: player
+Welcome player!
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JC player : When I call a family meeting I turn off the house wifi and wait for them all to come running.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JE player : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JB player : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JA player : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JD player : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JE player : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JA player : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JD player : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JC player : When I call a family meeting I turn off the house wifi and wait for them all to come running.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JB player : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:
+<------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+//10 Responses in Proverb Mode from JokeClient
+
+Not using 2 Commandline arguments for servername and port using defaults
+Hemanth Ande's inet Client, 1.8.
+Using Server: localhost, Port: 4545
+Enter your name: player
+Welcome player!
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PC player : The pursuit of happiness is the chase of a life time.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PA player : Those who say it can't be done are usually interrupted by others doing it.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PB player : A smile is an inexpensive way to change your looks.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PE player : Better to understand little than to misunderstand a lot.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PD player : Every man dies; but not every man really lives.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PE player : Better to understand little than to misunderstand a lot.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PC player : The pursuit of happiness is the chase of a life time.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PD player : Every man dies; but not every man really lives.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PA player : Those who say it can't be done are usually interrupted by others doing it.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PB player : A smile is an inexpensive way to change your looks.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:
+
+<------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+//Interleaving of modes
+Not using 2 Commandline arguments for servername and port using defaults
+Hemanth Ande's inet Client, 1.8.
+Using Server: localhost, Port: 4545
+Enter your name: Player
+Welcome Player!
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JC Player : When I call a family meeting I turn off the house wifi and wait for them all to come running.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PC Player : The pursuit of happiness is the chase of a life time.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JD Player : I refused to believe my road worker father was stealing from his job, but when I got home all the signs were there.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PB Player : A smile is an inexpensive way to change your looks.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JB Player : Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PD Player : Every man dies; but not every man really lives.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JE Player : I recently decided to sell my vacuum cleaner as all it was doing was gathering dust.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PE Player : Better to understand little than to misunderstand a lot.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+JA Player : Life is all about perspective. The sinking of the Titanic was a miracle to the lobsters in the ship's kitchen.
+Press Enter to receive Joke/proverb, (quit) to end:
+
+PA Player : Those who say it can't be done are usually interrupted by others doing it.
+=============================================
+Press Enter to receive Joke/proverb, (quit) to end:

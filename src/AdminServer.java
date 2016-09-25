@@ -17,9 +17,11 @@ public class AdminServer extends Thread {
             ServerSocket adminsock = new ServerSocket(port,q_len);
             System.out.println("Starting Admin Server PORT:" + port);
 
-
+//Server Forever listing to port for Admin Connection
             while (true) {
                 sock = adminsock.accept();
+                //
+                //When Admin connects handle it
                 new AdminMode (sock,status).start();
 
 

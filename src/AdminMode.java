@@ -32,6 +32,7 @@ public class AdminMode extends Thread {
                 System.out.println("Request From Admin: " + name);
                 try {
                     evaluteRequest(Integer.parseInt(name),out);
+                    //Send back that the input is not an Number
                 }catch (NumberFormatException ioe){out.println("Invalid Numerical Choice");}
 
 
@@ -45,7 +46,7 @@ public class AdminMode extends Thread {
 
         }
     }
-
+//Checking int input with values
     public void evaluteRequest(int check,PrintStream output){
         switch(check){
             case 0:

@@ -41,6 +41,7 @@ public class JokeClient {
                     num++;
 
                 }
+                //After 5 excutes print for formating reasons (5 jokes and proverbs)
                 if (num % 5 == 0){
                     System.out.println("=============================================");
                 }
@@ -51,6 +52,7 @@ public class JokeClient {
     }
 
     /**
+     * Deprecated not in use
      * Converts byte to string
      * @param ip byte array to be converted to string
      * @return result String Converted IP addres

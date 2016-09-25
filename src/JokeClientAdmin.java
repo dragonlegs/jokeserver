@@ -54,7 +54,7 @@ public class JokeClientAdmin {
         }catch (IOException ioe){System.out.println("Unable to Connect to Server");}
 
     }
-/*
+/**
     Receives String to send,ip address and port
     Returns String from server
 
@@ -85,14 +85,14 @@ public class JokeClientAdmin {
         }catch (IOException ioe){System.out.println("Unable to communicate with server");return "False";}
         return textFromServer;
     }
-/*
+/**
    Pretty print of options
  */
     static void printOptions(String option, int optionNo){
         System.out.println("[" + optionNo +"] " + option );
     }
-/*
-    Abstracted sendMessage funciontality into currentServerState for more custom return String
+/**
+    Abstracted sendMessage functionality into currentServerState for more custom return String
  */
     static String currentServerState(String choice, String serverName, int port){
         try{

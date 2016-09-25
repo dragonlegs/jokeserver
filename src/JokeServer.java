@@ -28,7 +28,9 @@ public class JokeServer {
              port = 4545 ;
             portAdmin = 5050;
         }
+        //Setup status Thread
         Status status = new Status();
+        //Setup Admin Connection Thread pass status and port
         AdminServer admin = new AdminServer(status,portAdmin);
         status.start();
         admin.start();
@@ -51,6 +53,8 @@ public class JokeServer {
             System.out.println(ioe.toString());
         }
     }
+
+    //Deprecated Used for preliminary testing only
     public static void  setJoke(){
         //System.out.println("Current Joke status: "+status.toString());
         try {
@@ -58,6 +62,7 @@ public class JokeServer {
         }catch (Exception ioe) {System.out.println(ioe);}
         System.out.println("Changed Joke status: "+status.toString());
     }
+    //Deprecated Used for preliminary testing only
     public static Boolean getJoke(){
         return status;
     }
