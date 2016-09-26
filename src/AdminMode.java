@@ -46,7 +46,12 @@ public class AdminMode extends Thread {
 
         }
     }
-//Checking int input with values
+
+    /**
+     * Chooses correct path based on user input
+     * @param check
+     * @param output
+     */
     public void evaluteRequest(int check,PrintStream output){
         switch(check){
             case 0:

@@ -52,6 +52,11 @@ public class Worker extends Thread {
 //        //Boolean local_value = JokeServer.STATUS;
 //        JokeServer.setJoke();
 //    }
+
+    /**
+     * For troublshooting purposes print current list
+     * @param al
+     */
     public void printList(HashMap<String,Integer> al){
         for (String key : al.keySet()){
             System.out.println(key + " : " + al.get(key));
@@ -59,6 +64,12 @@ public class Worker extends Thread {
 
     }
 
+    /**
+     * Chooser between getting joke or proverb
+     * @param status
+     * @param UUID
+     * @return data
+     */
     public String getData(Status status,String UUID){
         if (status.getJoke()){
             System.out.println("Getting Joke");
@@ -71,6 +82,12 @@ public class Worker extends Thread {
 
     }
     //Jokes are from onelinefun.com
+
+    /**
+     * Chooses the correct joke from random seed
+     * @param UUID
+     * @return Sends Joke to client
+     */
     public String getJoke(String UUID){
         String dataString;
         String unique = UUID+"true";
@@ -117,7 +134,7 @@ public class Worker extends Thread {
     //Proverbs from http://www.u.arizona.edu/~rchaves/deepthought.html
 
     /**
-     *
+     * Chooses Joke and proverb
      * @param UUID Unique String to store for random list
      * @return dataString String of Proverb
      */
@@ -180,24 +197,30 @@ public class Worker extends Thread {
     }
 
     /**
-     *
+     *Generate random list of jokes and proverb for each client.
      * @param list List that stores Random
      * @param UID
      * @return
      */
     public List<Integer> randomSeed(List<Integer> list,String UID){
+        //If value is found in list
         if (uidCycle.get(UID) != null){
            // System.out.println("Old Cycle UUID: " + UID);
             //System.out.println("Old Cycle Key: " + uidCycle.get(UID) );
             //System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+            //If we reach end of joke/proverb cycle with 5 jokes/proverbs
             if (uidCycle.get(UID) % 5 == 0){
                 //System.out.println("Current Cycle Zero " + uidCycle.get(UID));
+                //So benchmark that falls under
                 int real = uidCycle.get(UID)-1;
                 //System.out.println("Lower by one "+real);
+                //Generate seed by getting benchmark that substracting reminder from the value but make sure it falls
+                //under the previous benchmark
                 int seed = real - (real % 5);
                 //System.out.println("Seed is " + seed);
 
                 Collections.shuffle(list, new Random((UID+seed).hashCode()));
+            //Generate the benchmark by subtracting the reminder from the value
             }else{
                 int seed = uidCycle.get(UID) - (uidCycle.get(UID) % 5);
                 //System.out.println("Current Cycle Less " + uidCycle.get(UID));
@@ -206,8 +229,7 @@ public class Worker extends Thread {
                 Collections.shuffle(list, new Random((UID+seed).hashCode()));
             }
             uidCycle.put(UID, uidCycle.get(UID)+1);
-
-
+         //If value not found add to list ,recursive
         }else{
             //System.out.println("New Cycle");
             uidCycle.put(UID,1);
@@ -217,6 +239,11 @@ public class Worker extends Thread {
         return list;
     }
 
+    /**
+     * Tag to append to Joke/proverb output
+     * @param check
+     * @return String Tag
+     */
     public String serverTagId(Boolean check){
         if (check){
             return "<s2> ";

@@ -45,14 +45,15 @@ public class JokeServer {
         //Setup status Thread
 
         //Setup Admin Connection Thread pass status and port
-        AdminServer admin = new AdminServer(status, portAdmin);
-        admin.start();
+
 
         try {
             Socket sock;
 
             ServerSocket servsock = new ServerSocket(port, q_len);
             System.out.println("Hemanth Ande Joke Server is running on port " + port);
+            AdminServer admin = new AdminServer(status, portAdmin);
+            admin.start();
             while (true) {
                 try {
                     sock = servsock.accept();
@@ -85,13 +86,20 @@ public class JokeServer {
 //        return status;
 //    }
 
+    /**
+     * Runs a secondary port to connect to if args contains secondary
+     * @param args
+     * @return Boolean if secondary is selected
+     */
     public static boolean setSecondary(String args[]) {
         if (args[0].toLowerCase().equals("secondary")) {
             int Secport = 4546;
-            portAdmin = 5051;
-            secondary = true;
-            secondaryServer secondServer = new secondaryServer(uidList, status, uidCycle,secondary,Secport);
+            int portAdminSec = 5051;
+            //secondary = true;
+            secondaryServer secondServer = new secondaryServer(uidList, status, uidCycle,true,Secport);
             secondServer.start();
+            AdminServer adminSec = new AdminServer(status, portAdminSec);
+            adminSec.start();
             return true;
         }else {return false;}
     }

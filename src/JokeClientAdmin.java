@@ -27,6 +27,7 @@ public class JokeClientAdmin {
         System.out.println("Admin Client, 1.8.");
         System.out.println("Connecting to Server: " + serverName + ", Port: " + port);
         String state = "Not Known";
+        setIP(args);
         Socket sock;
         try{
             String name;
@@ -38,10 +39,26 @@ public class JokeClientAdmin {
                 printOptions("Toogle Server Status",0);
                 printOptions("Server State Status", 1);
                 printOptions("Shutdown Server",2);
+                printOptions("Change Server Connection",3);
                 System.out.println("Please Enter Selection: ");
                 System.out.flush();
                 name = in.readLine();
                 //If not 'quit' send the message
+                if (name.toLowerCase().equals("3")){
+                    if (!ip1.equals(null) || !ip2.equals(null)){
+                    if (serverName.equals(ip1)){
+                        serverName = ip1;
+                        port = 5050;
+                    }else {
+                        serverName = ip2;
+                        port = 5151;
+                    }
+                    }else{
+                        System.out.println("Unable to Change no second ip");
+                    }
+
+                    System.out.println("Changing  to " + serverName);
+                }
                 if (!name.toLowerCase().equals("quit")){
                     //System.out.println("Sending\n"+ name);
                     String check = sendMessage(name,serverName,port);
@@ -109,6 +126,11 @@ public class JokeClientAdmin {
 
     }
 
+    /**
+     * Checks args to make correct number if found
+     * @param args
+     * @return
+     */
     public static boolean checkArgs(String args[]){
         if (args.length == 2){
             ip1 = args[0];
@@ -124,19 +146,25 @@ public class JokeClientAdmin {
         return true;
 
     }
+
+    /**
+     * Allows user to select IP to connect to
+     */
     public static void selectIP(){
         System.out.println("Select Server to connect to");
         System.out.println("[0] " + ip1);
-        System.out.println("[1]" + ip2);
+        System.out.println("[1] " + ip2);
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             String enter = in.readLine();
             switch (enter){
                 case "0":
                     serverName = ip1;
+                    port = 5050;
                     break;
                 case "1":
                     serverName = ip2;
+                    port = 5051;
                     break;
                 default:
                     System.out.println("Option not valid");
@@ -144,6 +172,25 @@ public class JokeClientAdmin {
             }
 
         }catch (IOException ioe){System.out.println("Unable to read input");}
+
+    }
+
+    /**
+     * Sets custom or mutiple ips for server
+     * @param args
+     */
+    public static void setIP(String args[]){
+        if (args.length == 2){
+            System.out.println("Reading Commandline Arguments");
+            ip1 = args[0];
+            ip2 = args[1];
+        }else if (args.length == 1){
+            System.out.println("Found One Commandline Arg");
+            serverName = args[0];
+        }
+        else{
+            System.out.println("Unable TO Find two Commandline Args");
+        }
 
     }
 }

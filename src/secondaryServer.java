@@ -23,24 +23,25 @@ public class secondaryServer extends Thread {
 
     @Override
     public void run(){
-        System.out.println("Secondary Server Started");
+        //System.out.println("Secondary Server Started");
         try {
             Socket sock;
             int q_len = 6;
             ServerSocket servsock = new ServerSocket(port, q_len);
-            System.out.println("Hemanth Ande Joke Server is running on port " + port);
+            System.out.println("Hemanth Ande Second Joke Server is running on port " + port);
             while (true) {
                 try {
                     sock = servsock.accept();
+                    System.out.println("received Connection");
                     //sock2 = adminsock.accept();
-                    System.out.println("Current Joke Staus: " + status.toString());
+                    //System.out.println("Current Joke Staus: " + status.toString());
                     new Worker(sock, uidList, status, uidCycle,secondary).start();
                 } catch (IOException ioe) {
                     System.out.println("Unable to start server");
                 }
             }
         } catch (IOException ioe) {
-            System.out.println("Unable to start server");
+            System.out.println("Unable to start second server");
             System.out.println(ioe.toString());
         }
     }
